@@ -230,10 +230,12 @@
       </div>
     </section>
     <script>
+      // Game
       function game() {
 	  let playerPoints = 0;
 	  let computerPoints = 0;
 
+	  // begin game
 	  function startGame() {
 	      const playBtn = document.querySelector(".intro button");
 	      const introScreen = document.querySelector(".intro");
@@ -244,6 +246,7 @@
 	      });
 	  }
 
+	  // play the match
 	  function playMatch() {
 	      const options = document.querySelectorAll(".options button");
 	      const playerHand = document.querySelector(".player-hand");
@@ -255,16 +258,21 @@
 		  });
 	      })
 
+	      // options for the computer
 	      const computerOptions = ["rock", "paper", "scissors"];
 	      options.forEach(option => {
 		  option.addEventListener("click", function() {
+		      // the computer's choice
 		      const computerNumber = Math.floor(Math.random() * 3);
 		      const computerChoice = computerOptions[computerNumber];
 		      setTimeout(() => {
+			  // compareHands function is called
 			  compareHands(this.textContent, computerChoice);
+			  // updates images
 			  playerHand.src = `./${this.textContent}.png`;
 			  computerHand.src = `./${computerChoice}.png`;
 		      }, 2000);
+		      // animation
 		      playerHand.style.animation = "shakePlayer 2s ease";
 		      computerHand.style.animation = "shakeComputer 2s ease";
 		  });
@@ -275,6 +283,7 @@
 		  });
 	  }
 
+	  // updates the score
 	  function scoreUpdate() {
 	      const playerScore = document.querySelector(".player-score p");
 	      const computerScore = document.querySelector(".computer-score p");
@@ -283,6 +292,7 @@
 	      winGame(); 
 	  }
 
+	  // restarts the game
 	  function restartGame() {
 	      const playerScore = document.querySelector(".player-score p");
 	      const computerScore = document.querySelector(".computer-score p");
@@ -295,6 +305,7 @@
 		  });
 	  }
 
+	  // displays when the player or computer wins the game
 	  function winGame() {
 	      const winner = document.querySelector(".winner");
 	      const options = document.querySelectorAll(".options button");
