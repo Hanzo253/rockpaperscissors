@@ -30,6 +30,10 @@
 	  font-size: 30px;
       }
 
+      #player-name {
+	  text-align: center;
+      }
+
       .score p {
 	  text-align: center;
 	  padding: 10px;
@@ -75,6 +79,10 @@
 	  top: 125%;
       }
 
+      #name {
+	  position: relative;
+      }
+
       .match {
 	  position: absolute;
 	  top: 50%;
@@ -96,6 +104,10 @@
 	  color: aliceblue;
 	  text-align: center;
 	  font-size: 30px;
+      }
+
+      #name-label {
+	  color: black;
       }
 
       .hands, .options {
@@ -200,7 +212,10 @@
     <section class="game">
       <div class="score">
 	<div class="player-score">
-	  <h2>Hanzo</h2>
+	  <label id="name-label" for="name">Enter a name:</label>
+	  <input type="text" id="name" value="" required>
+	  <button class="submit" onclick="inputName()">Submit</button>
+	  <h2 id="player-name"></h2>
 	  <p>0</p>
 	</div>
 	<div class="computer-score">
@@ -210,7 +225,9 @@
       </div>
       <div class="intro">
 	<h1>Rock Paper Scissors!</h1>
-	<button>Let's Play</button>
+	<div>
+	  <button>Start</button>
+	</div>
       </div>
       <div class="match fadeOut">
 	<h2 class="winner">Choose an option</h2>
@@ -229,6 +246,27 @@
 	<p id="win-condition">Score 5 points to win the game!</p>
       </div>
     </section>
+    <script>
+
+      // name input for player
+      function inputName() {
+	  var name = document.getElementById("name").value;
+	  document.getElementById("player-name").innerHTML = name;
+	  if (name === "") {
+	      name.required = true;
+	      document.getElementById("player-name").innerHTML = "Please type in a name!";
+	  }
+	  
+	  else {
+	      $(document).ready(function() {
+		  $("#name-label").fadeOut();
+		  $("#name").fadeOut();
+		  $(".submit").fadeOut();
+	      });
+	  }
+      }
+      
+    </script>
     <script>
       // Game
       function game() {
@@ -314,8 +352,9 @@
 	      const playerHand = document.querySelector(".player-hand");
 	      const computerHand = document.querySelector(".computer-hand");
 	      const hands = document.querySelectorAll(".hands img");
+	      var name = document.getElementById("name").value;
 	      if (playerPoints === 5) {
-		  winner.textContent = "Hanzo wins the game!";
+		  winner.textContent = name + " wins the game!";
 		  $(document).ready(function() {
 		      $(".options").fadeOut();
 		      $(".hands").fadeOut();
@@ -338,6 +377,7 @@
 	  function compareHands(playerChoice, computerChoice) {
 	      const winner = document.querySelector(".winner");
 	      const restart = document.querySelectorAll(".restart button");
+	      var name = document.getElementById("name").value;
 	      document.getElementById("restart-game").onclick = function() {
 		  playerPoints = 0;
 		  computerPoints = 0;
@@ -360,7 +400,7 @@
 		  }
 
 		  else {
-		      winner.textContent = "Hanzo is the winner!";
+		      winner.textContent = name + " is the winner!";
 		      playerPoints++
 		      scoreUpdate();
 		      return;
@@ -376,7 +416,7 @@
 		  }
 
 		  else {
-		      winner.textContent = "Hanzo is the winner!";
+		      winner.textContent = name + " is the winner!";
 		      playerPoints++
 		      scoreUpdate();
 		      return;
@@ -392,7 +432,7 @@
 		  }
 
 		  else {
-		      winner.textContent = "Hanzo is the winner!";
+		      winner.textContent = name + " is the winner!";
 		      playerPoints++
 		      scoreUpdate();
 		      return;
