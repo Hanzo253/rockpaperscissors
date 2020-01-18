@@ -226,7 +226,7 @@
       <div class="intro">
 	<h1>Rock Paper Scissors!</h1>
 	<div>
-	  <button>Start</button>
+	  <button id="start-button" class="begin" onclick="checkName()">Start</button>
 	</div>
       </div>
       <div class="match fadeOut">
@@ -265,6 +265,25 @@
 	      });
 	  }
       }
+
+      // checks if there is a name input, and the game will start when there is one
+      function checkName() {
+	  var name = document.getElementById("name").value; 
+	  if (document.getElementById("player-name").innerHTML !== "") {
+	      $(document).ready(function() {
+		  var opacity = $(".fadeOut").css("opacity");
+		  $(".intro button").fadeOut();
+		  $(".intro").fadeOut();
+		  $(".fadeOut").css("opacity", 1);
+		  $(".fadeOut").css("pointer-events", "all");
+		  $(".match").fadeIn();
+	      });
+	  }
+	  
+	  else {
+	      alert("Please enter a name!");
+	  }
+      }
       
     </script>
     <script>
@@ -272,18 +291,7 @@
       function game() {
 	  let playerPoints = 0;
 	  let computerPoints = 0;
-
-	  // begin game
-	  function startGame() {
-	      const playBtn = document.querySelector(".intro button");
-	      const introScreen = document.querySelector(".intro");
-	      const match = document.querySelector(".match");
-	      playBtn.addEventListener("click", () => {
-		  introScreen.classList.add("fadeOut");
-		  match.classList.add("fadeIn");
-	      });
-	  }
-
+	  
 	  // play the match
 	  function playMatch() {
 	      const options = document.querySelectorAll(".options button");
@@ -374,6 +382,7 @@
 	      }
 	  }
 
+	  // checks which hand is the winner
 	  function compareHands(playerChoice, computerChoice) {
 	      const winner = document.querySelector(".winner");
 	      const restart = document.querySelectorAll(".restart button");
@@ -439,8 +448,7 @@
 		  }
 	      }
 	  }
-
-	  startGame();
+	  
 	  playMatch();
       }
       
